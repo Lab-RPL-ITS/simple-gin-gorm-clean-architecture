@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"os"
+	"rpl-simple-backend/entity"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
@@ -37,12 +38,13 @@ func SetUpDatabaseConnection() *gorm.DB {
 		panic(err)
 	}
 
-	// if err := db.AutoMigrate(
-	// 	entity.User{},
-	// ); err != nil {
-	// 	fmt.Println(err)
-	// 	panic(err)
-	// }
+	if err := db.AutoMigrate(
+		entity.User{},
+		entity.PhoneNumber{},
+	); err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
 
 	return db
 }
